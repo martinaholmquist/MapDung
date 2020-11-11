@@ -68,6 +68,16 @@ public class Map {
 
     }
 
+    public void exitFromMap() { //OBS Lägg in huvudmeny-metod
+
+        System.out.println("Do you want to return to main menu, please enter Y/N; ");
+        char choice;
+        choice = input.next().charAt(0);
+        if (choice == 'Y' || choice == 'y') {
+            System.out.println("Lägg in huvudmeny-metod. Hej då!!");
+        }
+    }  //OBS Lägg in huvudmeny-metod
+
     public int selectMap() {
         System.out.println(ANSI_CYAN + "You can choose between the following adventures: " + ANSI_RESET);
         System.out.println(ANSI_CYAN + "1) Map small" + ANSI_RESET);
@@ -631,7 +641,7 @@ public class Map {
                 if (mapMedium[k][l] == position) {
                     mapMedium[k][l] = 0;
                 }
-            }         
+            }
         }
 
         int rows = 5;
@@ -2071,31 +2081,31 @@ public class Map {
 
     public void randomMonster() {
 
-        Random random = new Random();      
-            if (Math.random() * 100 < 20) {     //jättespindel 20, 
-                System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
-                System.out.println("Watch out, theres a Giantspider ahead!");
-                giantspider();//hittepåmetoder för test-körning
-                hittePaFight();//hittepåmetoder för test-körning
-            }
-            if (Math.random() * 100 < 15) {  //skelett 15  
-                System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
-                System.out.println("Watch out, theres a Skeleton ahead!");
-                skeleton();//hittepåmetoder för test-körning
-                hittePaFight();//hittepåmetoder för test-körning
-            }
-            if (Math.random() * 100 < 10) {   //orc 10
-                System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
-                System.out.println("Watch out, theres an Orc ahead!");
-                orc();//hittepåmetoder för test-körning
-                hittePaFight();//hittepåmetoder för test-körning
-            }
-            if (Math.random() * 100 < 5) {     //troll 5
-                System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
-                System.out.println("Watch out, theres an Troll ahead!");
-                troll();//hittepåmetoder för test-körning
-                hittePaFight();//hittepåmetoder för test-körning
-            }      
+        Random random = new Random();
+        if (Math.random() * 100 < 20) {     //jättespindel 20, 
+            System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
+            System.out.println("Watch out, theres a Giantspider ahead!");
+            giantspider();//hittepåmetoder för test-körning
+            hittePaFight();//hittepåmetoder för test-körning
+        }
+        if (Math.random() * 100 < 15) {  //skelett 15  
+            System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
+            System.out.println("Watch out, theres a Skeleton ahead!");
+            skeleton();//hittepåmetoder för test-körning
+            hittePaFight();//hittepåmetoder för test-körning
+        }
+        if (Math.random() * 100 < 10) {   //orc 10
+            System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
+            System.out.println("Watch out, theres an Orc ahead!");
+            orc();//hittepåmetoder för test-körning
+            hittePaFight();//hittepåmetoder för test-körning
+        }
+        if (Math.random() * 100 < 5) {     //troll 5
+            System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
+            System.out.println("Watch out, theres an Troll ahead!");
+            troll();//hittepåmetoder för test-körning
+            hittePaFight();//hittepåmetoder för test-körning
+        }
     }  //OBS KALLA PÅ MONSTER OCH FIGHTEN
 
     public void randomTreasure() {  //lägg in i fightdelen, om vinna så plocka ev.skatt
@@ -2148,9 +2158,8 @@ public class Map {
         }
 
     }  //funkar ej, ska kolla med hjälp
-    
-    //*******************************************************************************
 
+    //*******************************************************************************
     public void hittePaFight() {
         Scanner input = new Scanner(System.in);
         System.out.println("Skriv ett valfritt heltal för att slåss");
