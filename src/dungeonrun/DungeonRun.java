@@ -6,19 +6,13 @@ public class DungeonRun {
 
     public static void main(String[] args) {
         Map w = new Map();  //skapar objekt av klassen map
-        
+
         w.welcomeMessage();
+        w.exitFromMap();
         w.selectMap();
         w.showMap();
-  
-      w.choiceOfStartPosition();    
-            
-       
-       w.visitedRoom();
+        w.choiceOfStartPosition();
+        w.visitedRoom();
 
-        System.out.println();
-
-                
-       
-}
+    }
 }
