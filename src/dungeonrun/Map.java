@@ -289,32 +289,51 @@ public class Map {
         System.out.println("---------------------------------------");
     }
 
-    public int choiceOfStartPosition2() {
-        while (true) {
-            System.out.println(ANSI_CYAN + "\nPlease choose which corner you would like to start at: " + ANSI_RESET);
-            System.out.println(ANSI_PURPLE + "For map small: 1) NorthWest, 4) NorthEast, 13) SouthWest, 16) SoutEast" + ANSI_RESET);
-            System.out.println(ANSI_YELLOW + "For map medium: 1) NorthWest, 5) NorthEast, 18) SouthWest, 22) SoutEast" + ANSI_RESET);
-            System.out.println(ANSI_RED + "For map large: 1) NorthWest, 8) NorthEast, 57) SouthWest, 64) SoutEast" + ANSI_RESET);
-            position = input.nextInt();
+    public void HittepVISITET() {
 
-            if (position == 1) {
-                System.out.println("You chose to start in the northwest corner");
-                return position;
-            } else if ((position == 4) || (position == 5) || (position == 8)) {
-                System.out.println("You chose to start in the northeast corner");
-                return position;
-            } else if ((position == 13) || (position == 17) || (position == 57)) {
-                System.out.println("You chose to start in the southwest corner");
-                return position;
-            } else if ((position == 16) || (position == 22) || (position == 64)) {
-                System.out.println("You chose to start in the southeast corner");
-                return position;
+        for (int k = 0; k < mapSmall.length; k++) {
+            for (int l = 0; l < mapSmall.length; l++) {
 
-            } else {
-                System.out.println("Wrong input");
+                // if (mapSmall[k][l] == position ) {
+                if (mapSmall[k][l] == position && mapSmall[k][l] == 0) {
+                    System.out.println("vad ser vi?? ");
+                    for (int i = 0; i < mapSmall.length; i++) {
+                        for (int j = 0; j < mapSmall.length; j++) {
+                            System.out.print(mapSmall[i][j]);
+
+                        }
+
+                    }
+                    // }
+                }
             }
         }
-    }  //OBS TA BORT
+
+        /*int initialSize = 17;
+        
+        //ArrayList<Integer> checkVisitedRoom = new ArrayList<Integer>(initialSize);
+        
+        ArrayList<Integer> checkVisitedRoom = new ArrayList<Integer>(Collections.nCopies(17, 0));
+        System.out.println(checkVisitedRoom);
+        for (int i = 0; i < initialSize; i++) {
+        checkVisitedRoom.add(i);  //denna tar nr from 100-165
+        // }
+        //checkVisitedRoom.set(position, position);    //om checkVisitedRoom har det nr som position har, ersätt det med nr position
+        // System.out.println(checkVisitedRoom);
+        int index1 = checkVisitedRoom.indexOf(position);
+        
+        if (position == index1) {
+        System.out.println("position == index1 ??? ");
+        checkVisitedRoom.set(position, position);
+        }
+        else {
+        System.out.println("näpp");
+        
+        }
+        
+        }
+        System.out.println(checkVisitedRoom);*/
+    }
 
     public int choiceOfStartPosition() {
         boolean running = true;
@@ -364,16 +383,17 @@ public class Map {
     } //KALLAR PÅ visitedRoom-small, medium, large och går vidare till choiceOfDirectionMap-Small, medium, large
 
     public void visitedRoomSmall() { //KALLAR PÅ RANDOM (MONSTER, SKATTER OCH EXIT)
-        //allRoomsDone();  denna funkar ej, 
-        randomMonster();
-        randomTreasure();
-        randomExit();
+        allRoomsDone();  //denna funkar ej, 
+        //HittepVISITET();
+        //randomMonster();
+        //  randomTreasure();
+        // randomExit();
+
         for (int k = 0; k < mapSmall.length; k++) {
             for (int l = 0; l < mapSmall.length; l++) {
 
                 if (mapSmall[k][l] == position) {
                     mapSmall[k][l] = 0;
-                    //    System.out.println("fortsätt spelet " + mapSmall[k][l]); //kolla så det stämmer printout
                 }
             }
         }
@@ -381,7 +401,8 @@ public class Map {
         int rows = 4;
         int columns = 4;
         int i, j;
-
+        System.out.println("************************************************************");
+        System.out.println(" ");
         for (i = 0; i < rows; i++) {
             //bara snygga grejer för utskrift
             System.out.println("------------------");
@@ -396,15 +417,24 @@ public class Map {
     }//KALLAR PÅ RANDOM (MONSTER, SKATTER OCH EXIT)
 
     public void choiceOfDirectionMapSmall() {
-        int choice;
+        int choice = 0;
+        boolean isGameOn = true;
         System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
         System.out.println("From your current position you may choose from the following options");
 
         if (position == 6) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
+
             if (choice == 1) {
                 position = 2;
             }
@@ -419,9 +449,15 @@ public class Map {
             }
         } else if (position == 7) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 3;
             }
@@ -436,9 +472,15 @@ public class Map {
             }
         } else if (position == 10) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 6;
             }
@@ -453,9 +495,15 @@ public class Map {
             }
         } else if ((position == 11)) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 7;
             }
@@ -470,9 +518,15 @@ public class Map {
             }
         } else if (position == 2) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 6;
             }
@@ -484,9 +538,15 @@ public class Map {
             }
         } else if (position == 3) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 7;
             }
@@ -498,9 +558,15 @@ public class Map {
             }
         } else if (position == 14) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 10;
             }
@@ -512,9 +578,15 @@ public class Map {
             }
         } else if (position == 15) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 11;
             }
@@ -526,9 +598,15 @@ public class Map {
             }
         } else if (position == 5) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 1;
             }
@@ -540,9 +618,15 @@ public class Map {
             }
         } else if (position == 9) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 5;
             }
@@ -554,9 +638,15 @@ public class Map {
             }
         } else if (position == 8) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 4;
             }
@@ -568,9 +658,15 @@ public class Map {
             }
         } else if (position == 12) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 8;
             }
@@ -582,9 +678,15 @@ public class Map {
             }
         } else if (position == 1) {
             System.out.println("South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 5;
             }
@@ -593,9 +695,15 @@ public class Map {
             }
         } else if (position == 4) {
             System.out.println("South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 8;
             }
@@ -604,9 +712,15 @@ public class Map {
             }
         } else if (position == 13) {
             System.out.println("North:1 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 9;
             }
@@ -615,9 +729,15 @@ public class Map {
             }
         } else if (position == 16) {
             System.out.println("North:1 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 12;
             }
@@ -625,16 +745,14 @@ public class Map {
                 position = 15;
             }
         }
-        //else {
-        // }
         visitedRoom();
     }  //KALLAR I SLUTET PÅ VISITEDROOM
 
     public void visitedRoomMedium() {
         //allRoomsDone();  denna funkar ej, 
-        randomMonster();
-        randomTreasure();
-        randomExit();
+        //randomMonster();
+        //randomTreasure();
+        //randomExit();
         for (int k = 0; k < mapMedium.length; k++) {
             for (int l = 0; l < mapMedium.length; l++) {
 
@@ -661,15 +779,23 @@ public class Map {
     } //KALLAR PÅ RANDOM (MONSTER, SKATTER OCH EXIT)
 
     public void choiceOfDirectionMapMedium() {  //kallar på visitedRoom
-        int choice;
-
+        int choice = 0;
+        boolean isGameOn = true;
+        System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
         System.out.println("From your current position you may choose from the following options");
 
         if (position == 7) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 2;
             }
@@ -684,9 +810,16 @@ public class Map {
             }
         } else if (position == 8) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 3;
             }
@@ -701,9 +834,16 @@ public class Map {
             }
         } else if (position == 9) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 4;
             }
@@ -718,9 +858,16 @@ public class Map {
             }
         } else if (position == 12) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 7;
             }
@@ -735,9 +882,16 @@ public class Map {
             }
         } else if (position == 13) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 8;
             }
@@ -752,9 +906,16 @@ public class Map {
             }
         } else if (position == 14) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 9;
             }
@@ -769,9 +930,16 @@ public class Map {
             }
         } else if (position == 17) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 12;
             }
@@ -786,9 +954,16 @@ public class Map {
             }
         } else if (position == 18) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 13;
             }
@@ -803,9 +978,16 @@ public class Map {
             }
         } else if (position == 19) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 14;
             }
@@ -820,10 +1002,16 @@ public class Map {
             }
         } else if (position == 2) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 7;
             }
@@ -834,11 +1022,17 @@ public class Map {
                 position = 1;
             }
         } else if (position == 3) {
-            System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            System.out.println("South:2, East:3 or West:4");;
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 8;
             }
@@ -850,10 +1044,16 @@ public class Map {
             }
         } else if (position == 4) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 9;
             }
@@ -865,10 +1065,16 @@ public class Map {
             }
         } else if (position == 22) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 17;
             }
@@ -880,10 +1086,16 @@ public class Map {
             }
         } else if (position == 23) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 18;
             }
@@ -895,10 +1107,16 @@ public class Map {
             }
         } else if (position == 24) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 19;
             }
@@ -910,10 +1128,15 @@ public class Map {
             }
         } else if (position == 6) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
-
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 1;
             }
@@ -925,10 +1148,16 @@ public class Map {
             }
         } else if (position == 11) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 6;
             }
@@ -940,10 +1169,16 @@ public class Map {
             }
         } else if (position == 16) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 11;
             }
@@ -955,10 +1190,16 @@ public class Map {
             }
         } else if (position == 10) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 5;
             }
@@ -970,10 +1211,16 @@ public class Map {
             }
         } else if (position == 15) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 10;
             }
@@ -985,10 +1232,16 @@ public class Map {
             }
         } else if (position == 20) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
 
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 15;
             }
@@ -1000,9 +1253,16 @@ public class Map {
             }
         } else if (position == 1) {
             System.out.println("South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 6;
             }
@@ -1011,9 +1271,16 @@ public class Map {
             }
         } else if (position == 5) {
             System.out.println("South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 10;
             }
@@ -1022,9 +1289,16 @@ public class Map {
             }
         } else if (position == 21) {
             System.out.println("North:1 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 16;
             }
@@ -1033,9 +1307,16 @@ public class Map {
             }
         } else if (position == 25) {
             System.out.println("North:1 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 20;
             }
@@ -1049,9 +1330,9 @@ public class Map {
 
     public void visitedRoomLarge() {
         //allRoomsDone();  denna funkar ej, 
-        randomMonster();
-        randomTreasure();
-        randomExit();
+        //randomMonster();
+        //randomTreasure();
+        //randomExit();
         for (int k = 0; k < mapLarge.length; k++) {
             for (int l = 0; l < mapLarge.length; l++) {
 
@@ -1078,15 +1359,23 @@ public class Map {
     } //KALLAR PÅ RANDOM (MONSTER, SKATTER OCH EXIT)
 
     public void choiceOfDirectionMapLarge() {
-        int choice;
-
+        int choice = 0;
+        boolean isGameOn = true;      
+        System.out.println("-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----");
         System.out.println("From your current position you may choose from the following options");
 
         if (position == 10) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 2;
             }
@@ -1101,9 +1390,16 @@ public class Map {
             }
         } else if (position == 11) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 3;
             }
@@ -1118,9 +1414,16 @@ public class Map {
             }
         } else if (position == 12) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 4;
             }
@@ -1135,9 +1438,16 @@ public class Map {
             }
         } else if (position == 13) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 5;
             }
@@ -1152,9 +1462,16 @@ public class Map {
             }
         } else if (position == 14) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 6;
             }
@@ -1168,10 +1485,17 @@ public class Map {
                 position = 13;
             }
         } else if (position == 15) {
-            System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            System.out.println("North:1, South:2, East:3 or West:4");;
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 7;
             }
@@ -1186,9 +1510,16 @@ public class Map {
             }
         } else if (position == 18) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 10;
             }
@@ -1203,9 +1534,16 @@ public class Map {
             }
         } else if (position == 19) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 11;
             }
@@ -1220,9 +1558,16 @@ public class Map {
             }
         } else if (position == 20) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 12;
             }
@@ -1237,9 +1582,16 @@ public class Map {
             }
         } else if (position == 21) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 13;
             }
@@ -1254,9 +1606,16 @@ public class Map {
             }
         } else if (position == 22) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 14;
             }
@@ -1271,9 +1630,16 @@ public class Map {
             }
         } else if (position == 23) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 15;
             }
@@ -1288,9 +1654,16 @@ public class Map {
             }
         } else if (position == 26) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 18;
             }
@@ -1305,9 +1678,16 @@ public class Map {
             }
         } else if (position == 27) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 19;
             }
@@ -1322,9 +1702,16 @@ public class Map {
             }
         } else if (position == 28) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 20;
             }
@@ -1339,9 +1726,16 @@ public class Map {
             }
         } else if (position == 29) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 21;
             }
@@ -1356,9 +1750,16 @@ public class Map {
             }
         } else if (position == 30) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 22;
             }
@@ -1373,9 +1774,16 @@ public class Map {
             }
         } else if (position == 31) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 23;
             }
@@ -1390,9 +1798,16 @@ public class Map {
             }
         } else if (position == 34) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 26;
             }
@@ -1407,9 +1822,16 @@ public class Map {
             }
         } else if (position == 35) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 27;
             }
@@ -1424,9 +1846,16 @@ public class Map {
             }
         } else if (position == 36) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 28;
             }
@@ -1441,9 +1870,16 @@ public class Map {
             }
         } else if (position == 37) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 29;
             }
@@ -1458,9 +1894,16 @@ public class Map {
             }
         } else if (position == 38) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 30;
             }
@@ -1475,9 +1918,16 @@ public class Map {
             }
         } else if (position == 39) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 31;
             }
@@ -1492,9 +1942,16 @@ public class Map {
             }
         } else if (position == 42) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 34;
             }
@@ -1509,9 +1966,16 @@ public class Map {
             }
         } else if (position == 43) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 35;
             }
@@ -1526,9 +1990,16 @@ public class Map {
             }
         } else if (position == 44) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 36;
             }
@@ -1543,9 +2014,16 @@ public class Map {
             }
         } else if (position == 45) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 37;
             }
@@ -1560,9 +2038,16 @@ public class Map {
             }
         } else if (position == 46) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 38;
             }
@@ -1577,9 +2062,16 @@ public class Map {
             }
         } else if (position == 47) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 39;
             }
@@ -1594,9 +2086,16 @@ public class Map {
             }
         } else if (position == 50) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 42;
             }
@@ -1611,9 +2110,16 @@ public class Map {
             }
         } else if (position == 51) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 43;
             }
@@ -1628,9 +2134,16 @@ public class Map {
             }
         } else if (position == 52) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 44;
             }
@@ -1645,9 +2158,16 @@ public class Map {
             }
         } else if (position == 53) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 45;
             }
@@ -1662,9 +2182,16 @@ public class Map {
             }
         } else if (position == 54) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 46;
             }
@@ -1679,9 +2206,16 @@ public class Map {
             }
         } else if (position == 55) {
             System.out.println("North:1, South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 47;
             }
@@ -1696,9 +2230,16 @@ public class Map {
             }
         } else if (position == 2) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 10;
             }
@@ -1710,9 +2251,16 @@ public class Map {
             }
         } else if (position == 3) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 11;
             }
@@ -1724,9 +2272,16 @@ public class Map {
             }
         } else if (position == 4) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 12;
             }
@@ -1738,9 +2293,16 @@ public class Map {
             }
         } else if (position == 5) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 13;
             }
@@ -1752,9 +2314,16 @@ public class Map {
             }
         } else if (position == 6) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 14;
             }
@@ -1766,9 +2335,16 @@ public class Map {
             }
         } else if (position == 7) {
             System.out.println("South:2, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 15;
             }
@@ -1780,9 +2356,16 @@ public class Map {
             }
         } else if (position == 58) {
             System.out.println("North:1,East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 50;
             }
@@ -1794,9 +2377,16 @@ public class Map {
             }
         } else if (position == 59) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 51;
             }
@@ -1808,9 +2398,16 @@ public class Map {
             }
         } else if (position == 60) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 52;
             }
@@ -1822,9 +2419,16 @@ public class Map {
             }
         } else if (position == 61) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 53;
             }
@@ -1836,9 +2440,16 @@ public class Map {
             }
         } else if (position == 62) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 54;
             }
@@ -1850,9 +2461,16 @@ public class Map {
             }
         } else if (position == 63) {
             System.out.println("North:1, East:3 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 55;
             }
@@ -1864,9 +2482,16 @@ public class Map {
             }
         } else if (position == 9) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 1;
             }
@@ -1878,9 +2503,16 @@ public class Map {
             }
         } else if (position == 17) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 9;
             }
@@ -1892,9 +2524,16 @@ public class Map {
             }
         } else if (position == 25) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 17;
             }
@@ -1906,9 +2545,16 @@ public class Map {
             }
         } else if (position == 33) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 25;
             }
@@ -1920,9 +2566,16 @@ public class Map {
             }
         } else if (position == 41) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 33;
             }
@@ -1934,9 +2587,16 @@ public class Map {
             }
         } else if (position == 49) {
             System.out.println("North:1, South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 41;
             }
@@ -1948,9 +2608,16 @@ public class Map {
             }
         } else if (position == 16) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 8;
             }
@@ -1962,9 +2629,16 @@ public class Map {
             }
         } else if (position == 24) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 16;
             }
@@ -1976,9 +2650,16 @@ public class Map {
             }
         } else if (position == 32) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 24;
             }
@@ -1990,9 +2671,16 @@ public class Map {
             }
         } else if (position == 40) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 32;
             }
@@ -2004,9 +2692,16 @@ public class Map {
             }
         } else if (position == 48) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 40;
             }
@@ -2018,9 +2713,16 @@ public class Map {
             }
         } else if (position == 56) {
             System.out.println("North:1, South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 48;
             }
@@ -2032,9 +2734,16 @@ public class Map {
             }
         } else if (position == 1) {
             System.out.println("South:2 or East:3");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 9;
             }
@@ -2043,9 +2752,16 @@ public class Map {
             }
         } else if (position == 8) {
             System.out.println("South:2 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 2 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 2) {
                 position = 16;
             }
@@ -2054,9 +2770,16 @@ public class Map {
             }
         } else if (position == 57) {
             System.out.println("North:1 or East:3 ");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 3) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 49;
             }
@@ -2065,9 +2788,16 @@ public class Map {
             }
         } else if (position == 64) {
             System.out.println("North:1 or West:4");
-            System.out.println("Make your choice");
-            choice = input.nextInt();
-            input.nextLine();
+            while (isGameOn) {
+                System.out.println("make your choice");
+                choice = input.nextInt();
+
+                if (choice == 1 || choice == 4) {
+                    isGameOn = false;
+                } else {
+                    System.out.println("Incorrect no,");
+                }
+            }
             if (choice == 1) {
                 position = 56;
             }
@@ -2145,19 +2875,50 @@ public class Map {
     } //OBS LÄGG IN EXITMETOD TILL HUVUDMENYN
 
     public void allRoomsDone() {
+        /*System.out.println("***************Nu ska jag kolla om alla rum är 0:ade");
+        for (int k = 0; k < mapSmall.length; k++) {
+        for (int l = 0; l < mapSmall.length; l++) {
+        
+        if (mapSmall[k][l] > 0) {  //
+        System.out.println("============Nä de e inte o;ade");
+        } else {
+        System.out.println("*************Alla rum är nollade");
+        }
+        }
+        }*/
+        //***********************************************************
+        /*    for (int k = 0; k < mapSmall.length; k++) {
+        for (int l = 0; l < mapSmall.length; l++) {
+        
+        if (mapSmall[k][l] == position) {
+        mapSmall[k][l] = 0;
+        }
+        }
+        }*/
+        //***************************************************************
+
+//*******************************************************************
+        int total = 0;
         System.out.println("***************Nu ska jag kolla om alla rum är 0:ade");
         for (int k = 0; k < mapSmall.length; k++) {
             for (int l = 0; l < mapSmall.length; l++) {
-
-                if (mapSmall[k][l] > 0) {
-                    System.out.println("============Nä de e inte o;ade");
+                total += mapSmall[k][l];
+                System.out.println("Total is " + total);
+                if (total != 0) {
+                    System.out.println("nu e det inte noll");
                 } else {
-                    System.out.println("*************Alla rum är nollade");
+                    System.out.println("e det 0 nu??");
                 }
             }
         }
 
-    }  //funkar ej, ska kolla med hjälp
+        /* int total = 0;
+        for (int i = 0; i < mapSmall.length; i++) {
+        total += mapSmall[i];
+        }
+        System.out.println("Total is " + total);   //kolla om denna kan tänkas funka*/
+    }
+    //funkar ej, ska kolla med hjälp
 
     //*******************************************************************************
     public void hittePaFight() {
