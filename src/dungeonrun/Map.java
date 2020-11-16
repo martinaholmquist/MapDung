@@ -380,9 +380,7 @@ public class Map {
             boolean tru = randomExit();
             if (tru == true) {
                 visitedRoomSmall();  //som går vidare till choiceOfDirectionMapSmall();  som går vidare till visitedRoom();
-            }
-            //if (saker händer kring monster...) { 
-            // System.out.println("då får vi se vad som händer...");
+            }         
             Fight.FightState finishState = HeroMenu.startGame();    // startGame() returnera om spelaren dog, om alla monster dog, om ett monster dog, spelaren flydde och om inga monster fanns 
             if (Fight.FightState.player_died == finishState) {
             return;                                                 // Bestäm vad som ska hända när spelaren dör
@@ -407,13 +405,10 @@ public class Map {
             if (tru == true) {
                 visitedRoomMedium();  //som SKA GÅ vidare till choiceOfDirectionMapMEDIUM();  som går vidare till visitedRoom();
             }
-            //if (saker händer kring monster...) { 
-            // System.out.println("då får vi se vad som händer...");
-            /*Fight.FightState finishState = HeroMenu.startGame();   // startGame() returnera om spelaren dog, om alla monster dog, om ett monster dog, 
-            spelaren flydde och om inga monster fanns och gå till skatter
+            Fight.FightState finishState = HeroMenu.startGame();    // startGame() returnera om spelaren dog, om alla monster dog, om ett monster dog, spelaren flydde och om inga monster fanns 
             if (Fight.FightState.player_died == finishState) {
-            return;                                                  // Bestäm vad som ska hända när spelaren dör
-            }*/
+            return;                                                 // Bestäm vad som ska hända när spelaren dör
+            }
             boolean truth = randomTreasure();
             if (truth == true) {
                 System.out.println("********************************************************************");
@@ -434,13 +429,10 @@ public class Map {
             if (tru == true) {
                 visitedRoomLarge();  //som SKA GÅ vidare till choiceOfDirectionMapLARGE();  som går vidare till visitedRoom();
             }
-            //if (saker händer kring monster...) { 
-            // System.out.println("då får vi se vad som händer...");
-            /*Fight.FightState finishState = HeroMenu.startGame();   // startGame() returnera om spelaren dog, om alla monster dog, om ett monster dog, 
-            spelaren flydde och om inga monster fanns och gå till skatter
+            Fight.FightState finishState = HeroMenu.startGame();    // startGame() returnera om spelaren dog, om alla monster dog, om ett monster dog, spelaren flydde och om inga monster fanns 
             if (Fight.FightState.player_died == finishState) {
-            return;                                                  // Bestäm vad som ska hända när spelaren dör
-            }*/
+            return;                                                 // Bestäm vad som ska hända när spelaren dör
+            }
             boolean truth = randomTreasure();
             if (truth == true) {
                 System.out.println("********************************************************************");
